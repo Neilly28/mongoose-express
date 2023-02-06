@@ -7,7 +7,7 @@ app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", "./views");
 
-// needed to see req.body?
+// needed to see req.body? => Use the bodyParser middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -36,12 +36,38 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
+// app.get("/signup", (req, res) => {
+//   const query = req.query;
+//   console.log(query);
+//   const username = req.query.username;
+//   res.render("dashboard", { user: username });
+// });
+
+app.post("/signup", (req, res) => {
+  // When we do a POST request the browser sends the data in the body
+  // We can access the data with req.body
+  const { username, password } = req.body;
+  console.log(username, password);
+  res.render("dashboard", { username, password });
+});
+
 // index routes to see all products
 app.get("/products", async (req, res) => {
   const products = await Product.find({}).lean();
   console.log(products[0]._id);
+  console.log(products.name);
   res.render("products", { products });
 });
+
+// searching for products
+// app.get("/productSearch", (req, res) => {
+//   const { title } = req.query;
+//   // console.log({ title });
+//   const product = Product.find({ title });
+//   console.log(product);
+//   // res.send("searching for produft");
+//   res.redirect(`/products/${product._id}`);
+// });
 
 // creating new products
 app.get("/products/new", (req, res) => {

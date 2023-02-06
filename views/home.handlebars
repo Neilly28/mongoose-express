@@ -1,2 +1,19 @@
 <h1>This is the homepage
 </h1>
+
+{{! <form action="/signup" method="GET">
+  <label for="username">Username</label>
+  <input type="text" name="username" />
+  <label for="password">Password</label>
+  <input type="password" name="password" />
+  <button type="submit">Signup</button>
+</form> }}
+
+{{! name attribute is called in req.body!!! super important }}
+<form action="/signup" method="POST">
+  <label for="username">Username</label>
+  <input type="text" name="username" />
+  <label for="password">Password</label>
+  <input type="password" name="password" />
+  <button type="submit">Signup</button>
+</form>
